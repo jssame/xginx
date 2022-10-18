@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #Xray版本
-Vless_Path="/less"
+Vless_Path="/l355"
 Vless_UUID="bbc709d0-0e3b-492d-b374-93b775bd7295"
-Vmess_Path="/mess"
+Vmess_Path="/m355"
 Vmess_UUID="bbc709d0-0e3b-492d-b374-93b775bd7295"
 Share_Path="/share233"
 
