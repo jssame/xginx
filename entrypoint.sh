@@ -27,6 +27,16 @@ if [[ -z "${Share_Path}" ]]; then
 fi
 echo ${Share_Path}
 
+mkdir /xraybin
+cd /xraybin
+RAY_URL="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip "
+echo ${RAY_URL}
+wget --no-check-certificate ${RAY_URL}
+unzip Xray-linux-64.zip
+rm -f Xray-linux-64.zip
+chmod +x ./xray
+ls -al
+
 cd /wwwroot
 tar xvf wwwroot.tar.gz
 rm -rf wwwroot.tar.gz
@@ -37,9 +47,9 @@ sed -e "/^#/d"\
     -e "s|\${Vless_Path}|${Vless_Path}|g"\
     -e "s/\${Vmess_UUID}/${Vmess_UUID}/g"\
     -e "s|\${Vmess_Path}|${Vmess_Path}|g"\
-    /conf/Xray.template.json >  /etc/config.json
-echo /etc/config.json
-cat /etc/config.json
+    /conf/Xray.template.json >  /xraybin/config.json
+echo /xraybin/config.json
+cat /xraybin/config.json
 
   s="s/proxy_pass/#proxy_pass/g"
   echo "site:use local wwwroot html"
@@ -65,6 +75,7 @@ sed -e "/^#/d"\
 echo /wwwroot/${Share_Path}/index.html
 cat /wwwroot/${Share_Path}/index.html
 
-/usr/bin/xray run -config /etc/config.json &
+cd /xraybin
+./xray run -c ./config.json &
 rm -rf /etc/nginx/sites-enabled/default
 nginx -g 'daemon off;'
