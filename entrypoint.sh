@@ -1,35 +1,46 @@
 #!/bin/bash
 
 #Xray版本
+if [[ -z "${VER}" ]]; then
+  VER="latest"
+fi
+echo ${VER}
 
 if [[ -z "${Vless_Path}" ]]; then
-  Vless_Path="/le"
+  Vless_Path="/s233"
 fi
 echo ${Vless_Path}
 
 if [[ -z "${Vless_UUID}" ]]; then
-  Vless_UUID="bbc709d0-0e3b-492d-b374-93b775bd7295"
+  Vless_UUID="5c301bb8-6c77-41a0-a606-4ba11bbab084"
 fi
 echo ${Vless_UUID}
 
 if [[ -z "${Vmess_Path}" ]]; then
-  Vmess_Path="/me"
+  Vmess_Path="/s244"
 fi
 echo ${Vmess_Path}
 
 if [[ -z "${Vmess_UUID}" ]]; then
-  Vmess_UUID="bbc709d0-0e3b-492d-b374-93b775bd7295"
+  Vmess_UUID="5c301bb8-6c77-41a0-a606-4ba11bbab084"
 fi
 echo ${Vmess_UUID}
 
 if [[ -z "${Share_Path}" ]]; then
-  Share_Path="/share"
+  Share_Path="/share233"
 fi
 echo ${Share_Path}
 
+if [ "$VER" = "latest" ]; then
+  VER=`wget -qO- "https://api.github.com/repos/XTLS/Xray-core/releases/latest" | sed -n -r -e 's/.*"tag_name".+?"([vV0-9\.]+?)".*/\1/p'`
+  [[ -z "${VER}" ]] && VER="v1.2.2"
+else
+  VER="v$VER"
+fi
+
 mkdir /xraybin
 cd /xraybin
-RAY_URL="https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip "
+RAY_URL="https://github.com/XTLS/Xray-core/releases/download/${VER}/Xray-linux-64.zip"
 echo ${RAY_URL}
 wget --no-check-certificate ${RAY_URL}
 unzip Xray-linux-64.zip
@@ -51,8 +62,13 @@ sed -e "/^#/d"\
 echo /xraybin/config.json
 cat /xraybin/config.json
 
+if [[ -z "${ProxySite}" ]]; then
   s="s/proxy_pass/#proxy_pass/g"
   echo "site:use local wwwroot html"
+else
+  s="s|\${ProxySite}|${ProxySite}|g"
+  echo "site: ${ProxySite}"
+fi
 
 sed -e "/^#/d"\
     -e "s/\${PORT}/${PORT}/g"\
