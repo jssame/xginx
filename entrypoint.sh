@@ -41,13 +41,8 @@ sed -e "/^#/d"\
 echo /etc/config.json
 cat /etc/config.json
 
-if [[ -z "${ProxySite}" ]]; then
   s="s/proxy_pass/#proxy_pass/g"
   echo "site:use local wwwroot html"
-else
-  s="s|\${ProxySite}|${ProxySite}|g"
-  echo "site: ${ProxySite}"
-fi
 
 sed -e "/^#/d"\
     -e "s/\${PORT}/${PORT}/g"\
