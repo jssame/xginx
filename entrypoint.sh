@@ -3,9 +3,9 @@
 #Xray版本
 VER="latest"
 Vless_Path="/s233"
-Vless_UUID="5c301bb8-6c77-41a0-a606-4ba11bbab084"
+Vless_UUID="0c925f6b-e17e-4577-9f5f-37fe90fc0dc8"
 Vmess_Path="/s244"
-Vmess_UUID="5c301bb8-6c77-41a0-a606-4ba11bbab084"
+Vmess_UUID="0c925f6b-e17e-4577-9f5f-37fe90fc0dc8"
 Share_Path="/share233"
 ProxySite="mirror.umd.edu"
 
