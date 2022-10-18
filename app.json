@@ -1,0 +1,10 @@
+{
+    "name": "heroku",
+    "description": "heroku",
+    "keywords": [""],
+    "env": {
+    },
+    "website": "",
+    "repository": "",
+    "stack": "container"
+}
